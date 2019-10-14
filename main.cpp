@@ -1,15 +1,22 @@
 #include <iostream>
 #include "Solver.h"
+#include <cstdlib>
 using namespace std;
 
 int main() {
 
-    string expresion;
-    cout << "Inserte la ecuacion: ";
-    cin >> expresion;
+    char op;
+    Solver ecuacion;
+    do{
+        string expresion;
+        cout << "Inserte la ecuacion: ";
+        cin >> expresion;
+        ecuacion.setExpresion(expresion);
+        cout << "Resultado: " << ecuacion.getResult() <<endl;
+        cout<<"Seguir S/N: "; cin>>op;
+        system("cls");
+    }while(tolower(op) != 'n');
 
-    Solver ecuacion(expresion);
-    cout << "Resultado: " << ecuacion.getResult() <<endl;
 
     return 0;
 }
