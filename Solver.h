@@ -31,8 +31,8 @@ public:
     void fillOperators(){
         this->operators['('] = 0;
         this->operators[')'] = 0;
-        this->operators['+'] = 1;
         this->operators['-'] = 1;
+        this->operators['+'] = 1;
         this->operators['*'] = 2;
         this->operators['/'] = 2;
         this->operators['^'] = 3;
@@ -59,10 +59,10 @@ public:
                 if(i == this->expresion.size()-1) values.push(new Node(valueNumeric));
             }
             else if( 65<=(this->expresion[i]) && (this->expresion[i])<=90 ){
-                if(this->variables.find((this->expresion[i])) == this->variables.end())
-                    getValueOfVariable((this->expresion[i]));
+                if(this->variables.find(this->expresion[i]) == this->variables.end())
+                    getValueOfVariable(this->expresion[i]);
 
-                valueNumeric = to_string(this->variables.find(this->expresion[i])->second);
+                valueNumeric = to_string(this->variables[this->expresion[i]]);
                 if(i == this->expresion.size()-1) values.push(new Node(valueNumeric));
 
             }
@@ -72,7 +72,7 @@ public:
                 constructTree.push(new Node(Operator));
             }
             else if((this->expresion[i]) == ')'){
-                if(valueNumeric != ""){
+                if(!valueNumeric.empty()){
                     values.push(new Node(valueNumeric));
                     valueNumeric.clear();
                 }
@@ -89,20 +89,21 @@ public:
                     values.push(new Node(valueNumeric));
                     valueNumeric.clear();
                 }
-                Operator = this->expresion[i];
+                Operator = this->expresion[i]; //char
 
                 if(constructTree.empty()) constructTree.push(new Node(Operator));
                 else{
-                    valueOperator = this->operators.find(this->expresion[i])->second;
+                    valueOperator = this->operators[Operator];
 
-                    auto itMap = operators.find(constructTree.top()->getOperator());
+                    auto itMap = this->operators.find(constructTree.top()->getOperator());
 
-                    if(itMap->second >= valueOperator){
+                    while(itMap->second >= valueOperator){
                         values.push(constructTree.top());
                         constructTree.pop();
-                        constructTree.push(new Node(Operator));
+                        if(constructTree.empty()) break;
+                        itMap = this->operators.find(constructTree.top()->getOperator());
                     }
-                    else constructTree.push(new Node(Operator));
+                    constructTree.push(new Node(Operator));
                 }
             }
         }
