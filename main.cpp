@@ -1,7 +1,5 @@
-#include <iostream>
 #include "Solver.h"
 #include <cstdlib>
-using namespace std;
 
 int main() {
 
