@@ -21,10 +21,6 @@ struct Node {
         this->expresion+=symbol;
         null();
     }
-    Node(int value){
-        this->expresion = to_string(value);
-        null();
-    }
 
     string getExpresion(){
         return this->expresion;
