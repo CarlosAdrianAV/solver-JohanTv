@@ -61,7 +61,7 @@ public:
             else if(this->expresion[i] == '.'){
                 valueNumeric+=(this->expresion[i]);
             }
-            else if( 65<=(this->expresion[i]) && (this->expresion[i])<=90 ){
+            else if( (65<=(this->expresion[i]) && (this->expresion[i])<=90) || (97<=(this->expresion[i]) && (this->expresion[i])<=122) ){
                 if(this->variables.find(this->expresion[i]) == this->variables.end())
                     getValueOfVariable(this->expresion[i]);
 
